@@ -1,10 +1,4 @@
-from flask_sqlalchemy import SQLAlchemy
-from flask_appbuilder import *
-from main import appf
-
-from sqlalchemy.ext.declarative import declarative_base
-
-db = SQLAlchemy(appf)
+from config import db
 
 
 class Base():
@@ -16,12 +10,19 @@ class Base():
         db.session.remove(self)
         db.session.commit()
 
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
 
 generoJogo = db.Table('generoJogo',
                       db.Column('idJogo', db.Integer, db.ForeignKey('jogo.id')),
                       db.Column('idGenero', db.Integer, db.ForeignKey('genero.id'))
                       )
 
+integrante = db.Table('integrante',
+                        db.Column('idUsu', db.Integer, db.ForeignKey('usuario.id')),
+                        db.Column('idGrupo', db.Integer, db.ForeignKey('grupo.id')),
+                       )
 
 class Usuario(db.Model, Base):
     __tablename__ = 'usuario'
@@ -29,10 +30,13 @@ class Usuario(db.Model, Base):
     nome = db.Column(db.String(50), nullable=False)
     localizacao = db.Column(db.String(50))
     idade = db.Column(db.Integer)
+    email = db.Column(db.Text)
+    senha = db.Column(db.Text)
 
     def __repr__(self):
         return self.nome
 
+    grupos = db.relationship("Grupo", secondary=integrante, back_populates="usuarios")
 
 class Jogo(db.Model, Base):
     __tablename__ = 'jogo'
@@ -80,9 +84,23 @@ class Jogador(db.Model, Base):
     jogo = db.Column(db.Integer, db.ForeignKey('jogo.id'), primary_key=True)
     perfil = db.Column(db.Integer, db.ForeignKey('perfil.id'))
     plataforma = db.Column(db.Integer, db.ForeignKey('plataforma.id'))
+    nick = db.Column(db.String(50))
     rank = db.Column(db.String(50))
 
     jogadoresPlat = db.relationship("Plataforma", lazy=True, backref="jogadoresPlat")
     jogadoresPerf = db.relationship("Perfil", lazy=True, backref="jogadoresPerf")
     jogadoresJogo = db.relationship("Jogo", backref="jogadoresJogo", lazy=True)
     jogadores = db.relationship("Usuario", backref="jogadores", lazy=True)
+
+class Grupo(db.Model, Base):
+    __tablename__ = "grupo"
+    id = db.Column(db.Integer, primary_key=True)
+    idUsuDono = db.Column(db.Integer, db.ForeignKey('usuario.id'))
+    jogo = db.Column(db.Integer, db.ForeignKey('jogo.id'))
+    plataforma = db.Column(db.Integer, db.ForeignKey('plataforma.id'))
+
+    gruposPlat = db.relationship("Plataforma", lazy=True, backref="gruposPlat")
+    gruposJogo = db.relationship("Jogo", backref="gruposJogo", lazy=True)
+
+    usuarios = db.relationship("Usuario", secondary=integrante, back_populates="grupos")
+
