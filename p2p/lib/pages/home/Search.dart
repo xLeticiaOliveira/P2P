@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -13,10 +11,29 @@ class _SearchState extends State<Search> {
   final TextEditingController _searchControll = new TextEditingController();
   final ScrollController _listControll = new ScrollController();
 
-  List _results = [];
+  String request = "http:\/\/127.0.0.1:5000/";
 
-  void _changeList(String text) {
-    setState(() {});
+
+  List _results = new List();
+  List _filteredResults = new List();
+
+  _SearchState() {
+    _searchControll.addListener(() {
+      if (_searchControll.text.isNotEmpty) {
+        setState(() {
+          _filteredResults = new List();
+          for (int i = 0; i < _results.length; i++) {
+            if (_results[i].toString().toLowerCase().contains(_searchControll.text.toLowerCase())){
+              _filteredResults.add(_results[i]);
+            }
+          }
+        });
+      } else{
+        setState(() {
+         _filteredResults=_results; 
+        });
+      }
+    });
   }
 
   @override
@@ -24,48 +41,33 @@ class _SearchState extends State<Search> {
     return Column(
       children: <Widget>[
         Container(
-          padding: EdgeInsets.fromLTRB(17.0, 1.0, 7.0, 1.0),
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                child: TextField(
-                  controller: _searchControll,
-                  decoration: InputDecoration(
-                      labelText: "Buscar",
-                      labelStyle: TextStyle(color: Colors.cyan[800])),
-                  onChanged: _changeList,
-                ),
-              ),
-              RaisedButton(
-                color: Colors.cyan,
-                child: Icon(Icons.search),
-                textColor: Colors.white,
-                onPressed: () {},
-              ),
-              Expanded(
-                  child: ListView.builder(
-                      itemBuilder: _buildItem,
-                      itemCount: _results.length,
-                      controller: _listControll))
-            ],
+          child: TextField(
+            controller: _searchControll,
+            decoration: InputDecoration(labelText: "Buscar"),
           ),
         ),
+        Expanded(child: _buildList())
       ],
+    );
+  }
+
+  Widget _buildList() {
+    return ListView.builder(
+      controller: _listControll,
+      itemCount: _filteredResults.length,
+      itemBuilder: _buildItem,
     );
   }
 
   Widget _buildItem(BuildContext context, int index) {
     return ListTile(
-      title: Text(_results[index]["Grupo"]),
-      onTap: openCard,
+      title: Text(_filteredResults[index]),
+      //onTap: _openCard,
     );
   }
 
-  void openCard() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => GroupInfo()),
-    );
+  void _openCard() {
+    
   }
 
   Future<File> _getFile() async {
@@ -85,31 +87,10 @@ class _SearchState extends State<Search> {
 
   @override
   void initState() {
-    super.initState();
-    _readData().then((data) {
-      setState(() {
-        _results = json.decode(data);
-      });
+    setState(() {
+      _results = ["Rainbow Six Siege", "Outlast", "Rocket League", "Vôlei"];
+      _filteredResults = _results;
     });
-  }
-}
-
-class GroupInfo extends StatefulWidget {
-  @override
-  _GroupInfoState createState() => _GroupInfoState();
-}
-
-class _GroupInfoState extends State<GroupInfo> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Text("Grupo info"),
-        RaisedButton(
-          child: Text("participar"),
-          onPressed: () {},
-        )
-      ],
-    );
+    super.initState();
   }
 }
