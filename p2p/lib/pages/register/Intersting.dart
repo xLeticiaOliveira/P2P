@@ -65,10 +65,7 @@ class _InterstingState extends State<Intersting> {
           Divider(),
           FlatButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Layout()),
-              );
+              Navigator.of(context).pushNamed('/home');
             },
             color: Colors.cyanAccent[700],
             child: Text(

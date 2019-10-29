@@ -51,10 +51,7 @@ class _LoginState extends State<Login> {
             Divider(),
             FlatButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Layout()),
-                );
+                Navigator.of(context).pushNamed('/home');
               },
               color: Colors.cyanAccent[700],
               child: Text(
@@ -65,10 +62,7 @@ class _LoginState extends State<Login> {
             InkWell(
               child: new Text('Clique aqui para se registrar'),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Register(0)),
-                );
+                Navigator.of(context).pushNamed('/register', arguments: 0);
               },
             ),
           ],
