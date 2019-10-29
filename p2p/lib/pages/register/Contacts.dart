@@ -71,10 +71,7 @@ class _ContactState extends State<Contact> {
           Divider(),
           FlatButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Register(2)),
-              );
+              Navigator.of(context).pushNamed('/register', arguments: 2);
             },
             color: Colors.cyanAccent[700],
             child: Text(

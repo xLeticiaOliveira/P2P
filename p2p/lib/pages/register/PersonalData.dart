@@ -70,10 +70,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
           Divider(),
           FlatButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Register(1)),
-              );
+              Navigator.of(context).pushNamed('/register', arguments: 1);
             },
             color: Colors.cyanAccent[700],
             child: Text(
