@@ -9,8 +9,12 @@ O aplicativo aqui desenvolvido conta com dois principais módulos:
 -------------
 
 Para a execução do Back, são necessários os seguintes passos:
+
   **1. Instalação das bibliotecas necessárias para a execução do programa:** No arquivo _requirements.txt_ consta todas as bibliotecas necessárias para a execução do programa.
+  
   **2. Criação do banco de dados:** Para a criação do banco de dados, é necessária a execução do arquivo _create_db.py_.
+  
   **3. Ligar o servidor:** Após efetuados os dois passos anteriores, execute o arquivo _run.py_.
+  
   
  Após a execução dos passos acima citados, pode-se avançar para a execução do front.
