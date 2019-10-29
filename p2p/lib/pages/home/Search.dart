@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
-
 class Search extends StatefulWidget {
   @override
   _SearchState createState() => _SearchState();
@@ -14,12 +13,10 @@ class _SearchState extends State<Search> {
   final TextEditingController _searchControll = new TextEditingController();
   final ScrollController _listControll = new ScrollController();
 
-  List _results= [];
+  List _results = [];
 
   void _changeList(String text) {
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   @override
@@ -46,12 +43,10 @@ class _SearchState extends State<Search> {
                 onPressed: () {},
               ),
               Expanded(
-                child: ListView.builder(
-                  itemBuilder: _buildItem,
-                  itemCount: _results.length,
-                  controller: _listControll
-                )
-              )
+                  child: ListView.builder(
+                      itemBuilder: _buildItem,
+                      itemCount: _results.length,
+                      controller: _listControll))
             ],
           ),
         ),
@@ -59,20 +54,19 @@ class _SearchState extends State<Search> {
     );
   }
 
-  Widget _buildItem(BuildContext context, int index){
+  Widget _buildItem(BuildContext context, int index) {
     return ListTile(
       title: Text(_results[index]["Grupo"]),
       onTap: openCard,
-      );
+    );
   }
 
-  void openCard(){
+  void openCard() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => GroupInfo()),
     );
   }
-
 
   Future<File> _getFile() async {
     final directory = await getApplicationDocumentsDirectory();
@@ -100,8 +94,6 @@ class _SearchState extends State<Search> {
   }
 }
 
-
-
 class GroupInfo extends StatefulWidget {
   @override
   _GroupInfoState createState() => _GroupInfoState();
@@ -115,10 +107,9 @@ class _GroupInfoState extends State<GroupInfo> {
         Text("Grupo info"),
         RaisedButton(
           child: Text("participar"),
-          onPressed: (){},
+          onPressed: () {},
         )
       ],
     );
   }
 }
-

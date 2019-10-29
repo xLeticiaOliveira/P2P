@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:p2p/pages/home/Contact.dart';
 import 'package:p2p/pages/home/Profile.dart';
+import 'package:p2p/pages/home/Search.dart';
 
 class Layout extends StatefulWidget {
   @override
@@ -13,8 +15,8 @@ class _LayoutState extends State<Layout> {
   static List<Widget> _widgetOptions = <Widget>[
     Profile(),
     Text('Descobrir'),
-    Text('Conversas'),
-    Text('Pesquisar'),
+    Contact(),
+    Search(),
   ];
 
   void _onItemTapped(int index) {
