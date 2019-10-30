@@ -22,6 +22,7 @@ class _SearchState extends State<Search> {
     _searchControll.addListener(() {
       if (_searchControll.text.isNotEmpty) {
         setState(() {
+          _filteredResults = List();
           _filteredResults = (new SearchService())
               .fillteredSearch(_results, _searchControll.text.toLowerCase());
         });
@@ -73,25 +74,10 @@ class _SearchState extends State<Search> {
     );
   }
 
-  Future<File> _getFile() async {
-    final directory = await getApplicationDocumentsDirectory();
-    return File("${directory.path}/data.json");
-  }
-
-  Future<String> _readData() async {
-    try {
-      final file = await _getFile();
-
-      return file.readAsString();
-    } catch (e) {
-      return null;
-    }
-  }
-
   @override
   void initState() {
     setState(() {
-      _results = (new GroupService()).getGroupsg();
+      _results = (new GroupService()).getGroups();
       _filteredResults = _results;
     });
     super.initState();
