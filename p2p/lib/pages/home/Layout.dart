@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:p2p/pages/home/Search.dart';
 import 'package:p2p/pages/home/Contact.dart';
 import 'package:p2p/pages/home/Profile.dart';
+import 'package:p2p/service/UserService.dart';
 
 class Layout extends StatefulWidget {
   @override
@@ -9,11 +10,14 @@ class Layout extends StatefulWidget {
 }
 
 class _LayoutState extends State<Layout> {
+
   int _selectedIndex = 1;
+
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
   static List<Widget> _widgetOptions = <Widget>[
-    Profile(),
+    Profile((new UserService()).getUserById(1)),
     Text('Descobrir'),
     Contact(),
     Search(),
@@ -59,7 +63,7 @@ class _LayoutState extends State<Layout> {
             iconSize: 40,
             unselectedItemColor: Colors.grey,
             showSelectedLabels: false,
-            
+
             onTap: _onItemTapped));
   }
 }

@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:p2p/service/GroupService.dart';
+import 'package:p2p/service/SearchService.dart';
 import 'package:path_provider/path_provider.dart';
 
 class Search extends StatefulWidget {
@@ -13,7 +15,6 @@ class _SearchState extends State<Search> {
 
   String request = "http:\/\/127.0.0.1:5000/";
 
-
   List _results = new List();
   List _filteredResults = new List();
 
@@ -21,16 +22,13 @@ class _SearchState extends State<Search> {
     _searchControll.addListener(() {
       if (_searchControll.text.isNotEmpty) {
         setState(() {
-          _filteredResults = new List();
-          for (int i = 0; i < _results.length; i++) {
-            if (_results[i].toString().toLowerCase().contains(_searchControll.text.toLowerCase())){
-              _filteredResults.add(_results[i]);
-            }
-          }
+          _filteredResults = List();
+          _filteredResults = (new SearchService())
+              .fillteredSearch(_results, _searchControll.text.toLowerCase());
         });
-      } else{
+      } else {
         setState(() {
-         _filteredResults=_results; 
+          _filteredResults = _results;
         });
       }
     });
@@ -38,15 +36,17 @@ class _SearchState extends State<Search> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: <Widget>[
-        Container(
-          child: TextField(
-            controller: _searchControll,
-            decoration: InputDecoration(labelText: "Buscar"),
-          ),
+        Column(
+          children: <Widget>[
+            TextField(
+              controller: _searchControll,
+              decoration: InputDecoration(labelText: "Buscar"),
+            ),
+            Expanded(child: _buildList())
+          ],
         ),
-        Expanded(child: _buildList())
       ],
     );
   }
@@ -62,33 +62,22 @@ class _SearchState extends State<Search> {
   Widget _buildItem(BuildContext context, int index) {
     return ListTile(
       title: Text(_filteredResults[index]),
-      //onTap: _openCard,
+      onTap: () {
+        Navigator.of(context).pushNamed('/profile', arguments: [_filteredResults[index],_filteredResults[index],_filteredResults[index]]);
+      },
+      trailing: IconButton(
+        icon: Icon(Icons.person_add),
+        onPressed: () {
+          (new GroupService()).addToGroup(1, 1);
+        },
+      ),
     );
-  }
-
-  void _openCard() {
-    
-  }
-
-  Future<File> _getFile() async {
-    final directory = await getApplicationDocumentsDirectory();
-    return File("${directory.path}/data.json");
-  }
-
-  Future<String> _readData() async {
-    try {
-      final file = await _getFile();
-
-      return file.readAsString();
-    } catch (e) {
-      return null;
-    }
   }
 
   @override
   void initState() {
     setState(() {
-      _results = ["Rainbow Six Siege", "Outlast", "Rocket League", "Vôlei"];
+      _results = (new GroupService()).getGroups();
       _filteredResults = _results;
     });
     super.initState();

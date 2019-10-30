@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:p2p/pages/register/Register.dart';
 
 class PersonalInfo extends StatefulWidget {
   @override

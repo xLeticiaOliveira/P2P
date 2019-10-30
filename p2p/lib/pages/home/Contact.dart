@@ -1,6 +1,6 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:p2p/service/GroupService.dart';
+import 'package:p2p/service/SearchService.dart';
 
 class Contact extends StatefulWidget {
   @override
@@ -21,16 +21,12 @@ class _ContactState extends State<Contact> {
     _searchControll.addListener(() {
       if (_searchControll.text.isNotEmpty) {
         setState(() {
-          _filteredResults = new List();
-          for (int i = 0; i < _results.length; i++) {
-            if (_results[i].toString().toLowerCase().contains(_searchControll.text.toLowerCase())){
-              _filteredResults.add(_results[i]);
-            }
-          }
+          _filteredResults = (new SearchService())
+              .fillteredSearch(_results, _searchControll.text.toLowerCase());
         });
-      } else{
+      } else {
         setState(() {
-         _filteredResults=_results; 
+          _filteredResults = _results;
         });
       }
     });
@@ -62,33 +58,16 @@ class _ContactState extends State<Contact> {
   Widget _buildItem(BuildContext context, int index) {
     return ListTile(
       title: Text(_filteredResults[index]),
-      //onTap: _openCard,
+      onTap: () {
+        Navigator.of(context).pushNamed('/profile', arguments: [_filteredResults[index],_filteredResults[index],_filteredResults[index]]);
+      },
     );
-  }
-
-  void _openCard() {
-    
-  }
-
-  Future<File> _getFile() async {
-    final directory = await getApplicationDocumentsDirectory();
-    return File("${directory.path}/data.json");
-  }
-
-  Future<String> _readData() async {
-    try {
-      final file = await _getFile();
-
-      return file.readAsString();
-    } catch (e) {
-      return null;
-    }
   }
 
   @override
   void initState() {
     setState(() {
-      _results = ["Jose", "Rothbard", "Samuel", "Marcelo"];
+      _results = (new GroupService()).getUserGroups(1);
       _filteredResults = _results;
     });
     super.initState();

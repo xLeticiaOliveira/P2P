@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:p2p/pages/home/Layout.dart';
 import 'package:p2p/pages/login/Login.dart';
+import 'package:p2p/pages/home/Layout.dart';
 import 'package:p2p/pages/register/Register.dart';
+import 'package:p2p/pages/home/SearchProfile.dart';
 
 class RouteGenerator {
 
@@ -21,6 +22,9 @@ class RouteGenerator {
 
             case '/register':
                 return MaterialPageRoute(builder: (_)=> Register(args));
+
+            case '/profile':
+                return MaterialPageRoute(builder: (_)=> SearchProfile(args));
 
             default:
                 return MaterialPageRoute(builder: (_)=> Layout());
