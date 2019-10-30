@@ -14,7 +14,7 @@ class _SearchState extends State<Search> {
 
   String request = "http:\/\/127.0.0.1:5000/";
 
-
+  
   List _results = new List();
   List _filteredResults = new List();
 
@@ -22,11 +22,12 @@ class _SearchState extends State<Search> {
     _searchControll.addListener(() {
       if (_searchControll.text.isNotEmpty) {
         setState(() {
-          _filteredResults = (new SearchService()).fillteredSearch(_results, _searchControll.text.toLowerCase());
+          _filteredResults = (new SearchService())
+              .fillteredSearch(_results, _searchControll.text.toLowerCase());
         });
-      } else{
+      } else {
         setState(() {
-         _filteredResults=_results; 
+          _filteredResults = _results;
         });
       }
     });
@@ -34,15 +35,18 @@ class _SearchState extends State<Search> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: <Widget>[
-        Container(
-          child: TextField(
-            controller: _searchControll,
-            decoration: InputDecoration(labelText: "Buscar"),
-          ),
+        Column(
+          children: <Widget>[
+            TextField(
+              controller: _searchControll,
+              decoration: InputDecoration(labelText: "Buscar"),
+            ),
+            Expanded(child: _buildList())
+          ],
         ),
-        Expanded(child: _buildList())
+        
       ],
     );
   }
@@ -58,7 +62,11 @@ class _SearchState extends State<Search> {
   Widget _buildItem(BuildContext context, int index) {
     return ListTile(
       title: Text(_filteredResults[index]),
-      //onTap: _openCard,
+      onTap: _openCard,
+      trailing: IconButton(
+        icon: Icon(Icons.person_add),
+        onPressed: () {},
+      ),
     );
   }
 
