@@ -20,19 +20,11 @@ class _RegisterState extends State<Register> {
     _selectedIndex = index;
   }
 
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = <Widget>[
     PersonalInfo(),
     Contact(),
     Intersting()
   ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
