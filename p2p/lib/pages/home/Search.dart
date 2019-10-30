@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:p2p/service/GroupService.dart';
 import 'package:p2p/service/SearchService.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -14,7 +15,6 @@ class _SearchState extends State<Search> {
 
   String request = "http:\/\/127.0.0.1:5000/";
 
-  
   List _results = new List();
   List _filteredResults = new List();
 
@@ -46,7 +46,6 @@ class _SearchState extends State<Search> {
             Expanded(child: _buildList())
           ],
         ),
-        
       ],
     );
   }
@@ -62,16 +61,16 @@ class _SearchState extends State<Search> {
   Widget _buildItem(BuildContext context, int index) {
     return ListTile(
       title: Text(_filteredResults[index]),
-      onTap: _openCard,
+      onTap: () {
+        Navigator.of(context).pushNamed('/profile', arguments: [_filteredResults[index],_filteredResults[index],_filteredResults[index]]);
+      },
       trailing: IconButton(
         icon: Icon(Icons.person_add),
-        onPressed: () {},
+        onPressed: () {
+          (new GroupService()).addToGroup(1, 1);
+        },
       ),
     );
-  }
-
-  void _openCard() {
-    
   }
 
   Future<File> _getFile() async {
@@ -92,7 +91,7 @@ class _SearchState extends State<Search> {
   @override
   void initState() {
     setState(() {
-      _results = (new SearchService()).getSearched();
+      _results = (new GroupService()).getGroupsg();
       _filteredResults = _results;
     });
     super.initState();
