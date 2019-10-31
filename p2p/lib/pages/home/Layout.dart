@@ -3,6 +3,7 @@ import 'package:p2p/pages/home/Search.dart';
 import 'package:p2p/pages/home/Contact.dart';
 import 'package:p2p/pages/home/Profile.dart';
 import 'package:p2p/service/UserService.dart';
+import 'package:p2p/pages/home/Discovery.dart';
 
 class Layout extends StatefulWidget {
   @override
@@ -18,7 +19,7 @@ class _LayoutState extends State<Layout> {
 
   static List<Widget> _widgetOptions = <Widget>[
     Profile((new UserService()).getUserById(1)),
-    Text('Descobrir'),
+    Discovery(),
     Contact(),
     Search(),
   ];
