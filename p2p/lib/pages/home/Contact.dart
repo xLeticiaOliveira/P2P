@@ -34,16 +34,20 @@ class _ContactState extends State<Contact> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Container(
-          child: TextField(
+    return Padding(
+      padding: EdgeInsets.all(15),
+      child: Column(
+        children: <Widget>[
+          TextField(
             controller: _searchControll,
-            decoration: InputDecoration(labelText: "Buscar Contato"),
+            decoration: InputDecoration(
+                labelText: "Buscar",
+                labelStyle: TextStyle(fontSize: 20, color: Colors.black),
+                border: OutlineInputBorder()),
           ),
-        ),
-        Expanded(child: _buildList())
-      ],
+          Expanded(child: _buildList())
+        ],
+      ),
     );
   }
 

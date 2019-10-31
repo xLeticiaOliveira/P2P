@@ -36,18 +36,20 @@ class _SearchState extends State<Search> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Column(
-          children: <Widget>[
-            TextField(
-              controller: _searchControll,
-              decoration: InputDecoration(labelText: "Buscar"),
-            ),
-            Expanded(child: _buildList())
-          ],
-        ),
-      ],
+    return Padding(
+      padding: EdgeInsets.all(15),
+      child: Column(
+        children: <Widget>[
+          TextField(
+            controller: _searchControll,
+            decoration: InputDecoration(
+                labelText: "Buscar",
+                labelStyle: TextStyle(fontSize: 20, color: Colors.black),
+                border: OutlineInputBorder()),
+          ),
+          Expanded(child: _buildList())
+        ],
+      ),
     );
   }
 
@@ -63,7 +65,11 @@ class _SearchState extends State<Search> {
     return ListTile(
       title: Text(_filteredResults[index]),
       onTap: () {
-        Navigator.of(context).pushNamed('/profile', arguments: [_filteredResults[index],_filteredResults[index],_filteredResults[index]]);
+        Navigator.of(context).pushNamed('/profile', arguments: [
+          _filteredResults[index],
+          _filteredResults[index],
+          _filteredResults[index]
+        ]);
       },
       trailing: IconButton(
         icon: Icon(Icons.person_add),
