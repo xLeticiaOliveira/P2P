@@ -23,6 +23,9 @@ Execução do Front
 -------------
 
 Para a execução do Front, são necessários:
- **1. Instalação do Flutter:** Você encontra as instruções para a instalação do Flutter aqui: https://flutter.dev/docs/get-started/install
- **2. Na pasta do projeto, execute o comando "flutter packages get"**
- **3. Conectar um dispositivo Android ou IOS por USB no modo de depuração ou um emulador** 
+
+  **1. Instalação do Flutter:** Você encontra as instruções para a instalação do Flutter aqui: https://flutter.dev/docs/get-started/install
+ 
+   **2. Na pasta do projeto, execute o comando "flutter packages get"**
+ 
+   **3. Conectar um dispositivo Android ou IOS por USB no modo de depuração ou um emulador** 
