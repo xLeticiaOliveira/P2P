@@ -21,41 +21,19 @@ class _DiscoveryState extends State<Discovery> {
                           width: 180,
                           height: 180,
                           color: Colors.deepOrange,
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                'Numero de Contatos',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                ),
-                              ),
-                              Text(
-                                '10',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 55),
-                              ),
-                            ],
+                          child: Image.asset(
+                            'assets/ps4.jpg',
+                            fit: BoxFit.fill,
                           )),
                     ),
                     Card(
                       child: Container(
                           width: 180,
                           height: 180,
-                          color: Colors.deepPurple,
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                'Numero de Jogos',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
-                              ),
-                              Text(
-                                '8',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 55),
-                              ),
-                            ],
+                          color: Colors.deepOrange,
+                          child: Image.asset(
+                            'assets/fofis.jpg',
+                            fit: BoxFit.fill,
                           )),
                     ),
                   ],
@@ -65,17 +43,12 @@ class _DiscoveryState extends State<Discovery> {
                       width: 370,
                       height: 180,
                       color: Colors.cyanAccent[700],
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            'Numero de Jogos',
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                          ),
-                          Text(
-                            '8',
-                            style: TextStyle(color: Colors.white, fontSize: 55),
-                          ),
-                        ],
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(10, 70, 0, 40),
+                        child: Text(
+                          'Não jogue mais Sozinho',
+                          style: TextStyle(color: Colors.white, fontSize: 30),
+                        ),
                       )),
                 ),
                 Card(
@@ -83,84 +56,44 @@ class _DiscoveryState extends State<Discovery> {
                       width: 370,
                       height: 370,
                       color: Colors.yellow,
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            'Numero de Jogos',
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                          ),
-                          Text(
-                            '8',
-                            style: TextStyle(color: Colors.white, fontSize: 55),
-                          ),
-                        ],
+                      child: Image.asset(
+                        'assets/ded.jpg',
+                        fit: BoxFit.fill,
                       )),
                 ),
                 Row(
                   children: <Widget>[
                     Card(
                       child: Container(
-                          width: 180,
-                          height: 370,
-                          color: Colors.deepOrange,
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                'Numero de Contatos',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                ),
-                              ),
-                              Text(
-                                '10',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 55),
-                              ),
-                            ],
-                          )),
+                        width: 180,
+                        height: 370,
+                        color: Colors.cyanAccent[700],
+                      ),
                     ),
-                    Column(children: <Widget>[
-                      Card(
-                      child: Container(
-                          width: 180,
-                          height: 180,
-                          color: Colors.deepPurple,
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                'Numero de Jogos',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
-                              ),
-                              Text(
-                                '8',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 55),
-                              ),
-                            ],
-                          )),
-                    ),Card(
-                      child: Container(
-                          width: 180,
-                          height: 180,
-                          color: Colors.deepPurple,
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                'Numero de Jogos',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
-                              ),
-                              Text(
-                                '8',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 55),
-                              ),
-                            ],
-                          )),
-                    ),
-                    ],)
+                    Column(
+                      children: <Widget>[
+                        Card(
+                          child: Container(
+                              width: 180,
+                              height: 180,
+                              color: Colors.deepPurple,
+                              child: Image.asset(
+                                'assets/xbox.jpg',
+                                fit: BoxFit.fill,
+                              )),
+                        ),
+                        Card(
+                          child: Container(
+                              width: 180,
+                              height: 180,
+                              color: Colors.deepPurple,
+                              child: Image.asset(
+                                'assets/boliche1.jpg',
+                                fit: BoxFit.fill,
+                              )),
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ],
