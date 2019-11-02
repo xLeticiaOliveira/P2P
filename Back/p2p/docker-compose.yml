@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  web_server:
+    image: ubuntu:16.04
+    container_name: mvp_borges
+    volumes:
+      - ./python:/server/python
+    ports:
+      - "80:5000"
