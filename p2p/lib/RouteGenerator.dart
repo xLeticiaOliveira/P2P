@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:p2p/pages/home/ContactProfile.dart';
 import 'package:p2p/pages/login/Login.dart';
 import 'package:p2p/pages/home/Layout.dart';
 import 'package:p2p/pages/register/Register.dart';
@@ -18,7 +19,7 @@ class RouteGenerator {
                 return MaterialPageRoute(builder: (_)=> Login());
 
             case '/home':
-                return MaterialPageRoute(builder: (_)=> Layout());
+                return MaterialPageRoute(builder: (_)=> Layout(args));
 
             case '/register':
                 return MaterialPageRoute(builder: (_)=> Register(args));
@@ -26,8 +27,11 @@ class RouteGenerator {
             case '/profile':
                 return MaterialPageRoute(builder: (context)=> SearchProfile(args));
 
+            case '/contact':
+                return MaterialPageRoute(builder: (context)=> ContactProfile(args));
+
             default:
-                return MaterialPageRoute(builder: (_)=> Layout());
+                return MaterialPageRoute(builder: (_)=> Layout(1));
 
         }
     }

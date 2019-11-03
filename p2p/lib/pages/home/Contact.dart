@@ -1,6 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:p2p/service/ContactService.dart';
 import 'package:path_provider/path_provider.dart';
+
+import '../../PlayerData.dart';
 
 class Contact extends StatefulWidget {
   @override
@@ -10,28 +14,34 @@ class Contact extends StatefulWidget {
 class _ContactState extends State<Contact> {
   final TextEditingController _searchControll = new TextEditingController();
   final ScrollController _listControll = new ScrollController();
+  ContactService _controll = new ContactService();
+  List<PlayerData> _contactList = new List();
 
-  String request = "http:\/\/127.0.0.1:5000/";
+  List<String> _filteredResults = new List();
 
-
-  List _results = new List();
-  List _filteredResults = new List();
+  void resetFilter(){
+    setState(() {
+      List<String> temp = new List();
+      for(PlayerData player in _contactList){
+        temp.add(player.nick);
+      }
+      _filteredResults = temp;
+    });
+  }
 
   _ContactState() {
     _searchControll.addListener(() {
       if (_searchControll.text.isNotEmpty) {
         setState(() {
           _filteredResults = new List();
-          for (int i = 0; i < _results.length; i++) {
-            if (_results[i].toString().toLowerCase().contains(_searchControll.text.toLowerCase())){
-              _filteredResults.add(_results[i]);
+          for (int i = 0; i < _contactList.length; i++) {
+            if (_contactList[i].nick.toLowerCase().contains(_searchControll.text.toLowerCase())){
+              _filteredResults.add(_contactList[i].nick);
             }
           }
         });
       } else{
-        setState(() {
-         _filteredResults=_results; 
-        });
+        resetFilter();
       }
     });
   }
@@ -62,35 +72,25 @@ class _ContactState extends State<Contact> {
   Widget _buildItem(BuildContext context, int index) {
     return ListTile(
       title: Text(_filteredResults[index]),
-      //onTap: _openCard,
+      onTap: (){
+        Navigator.of(context).pushNamed(
+            '/contact',
+            arguments:
+            _contactList[index]
+        );
+      },
     );
   }
 
-  void _openCard() {
-    
-  }
-
-  Future<File> _getFile() async {
-    final directory = await getApplicationDocumentsDirectory();
-    return File("${directory.path}/data.json");
-  }
-
-  Future<String> _readData() async {
-    try {
-      final file = await _getFile();
-
-      return file.readAsString();
-    } catch (e) {
-      return null;
-    }
-  }
 
   @override
-  void initState() {
-    setState(() {
-      _results = ["Jose", "Rothbard", "Samuel", "Marcelo"];
-      _filteredResults = _results;
-    });
+  Future<void> initState() {
     super.initState();
+    _controll.initContactList().then((data) {
+      setState(() {
+        _contactList = data;
+        resetFilter();
+      });
+    });
   }
 }

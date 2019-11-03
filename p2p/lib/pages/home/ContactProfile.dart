@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:p2p/service/ContactService.dart';
 import 'package:p2p/PlayerData.dart';
 
-class SearchProfile extends StatelessWidget {
+class ContactProfile extends StatelessWidget {
   ContactService service = new ContactService();
   PlayerData pData;
 
-  SearchProfile(PlayerData data){
+  ContactProfile(PlayerData data){
     pData = data;
-  }
-
-  Future<void> _addToContacts() async {
-    await service.addMember(pData);
   }
 
   @override
@@ -27,7 +23,7 @@ class SearchProfile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Icon(Icons.person, size: 120,
-              color: Colors.cyanAccent[700]),
+                color: Colors.cyanAccent[700]),
             Text("nick: "+pData.nick,  style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -57,9 +53,13 @@ class SearchProfile extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _addToContacts,
+        onPressed: () async {
+          await service.removeMember(pData);
+          Navigator.pushReplacementNamed(context,'/home', arguments: 2);
+          //Navigator.of(context).pushNamed('/home', arguments: 2);
+        },
         tooltip: 'Adicionar aos Contatos',
-        child: const Icon(Icons.person_add),
+        child: const Icon(Icons.remove),
       ),
     );
   }

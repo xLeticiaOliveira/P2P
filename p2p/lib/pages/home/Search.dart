@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:p2p/Controller.dart';
-import 'package:p2p/service/GroupService.dart';
+import 'package:p2p/service/SearchService.dart';
 import 'package:p2p/PlayerData.dart';
 
 class Search extends StatefulWidget {
@@ -11,7 +10,7 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   final TextEditingController _searchControll = new TextEditingController();
   final ScrollController _listControll = new ScrollController();
-  final Controller _controll = new Controller();
+  final SearchService _controll = new SearchService();
   List _results = new List();
   List _filteredResults = new List();
   int _state;
@@ -70,6 +69,7 @@ class _SearchState extends State<Search> {
           temp = await  _controll.getPlayerList(_filteredResults[index]);
           setState((){
             _filteredResults = temp;
+            _results = _filteredResults;
             _state = 1;
         });
       } else{
