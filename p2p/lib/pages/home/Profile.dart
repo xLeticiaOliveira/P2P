@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
-class Profile extends StatefulWidget {
+class Profile extends StatelessWidget {
   @override
-  _ProfileState createState() => _ProfileState();
-}
 
-class _ProfileState extends State<Profile> {
-  @override
+  List _user;
+
+  Profile(List user){
+    this._user = user;
+  }
+
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       padding: EdgeInsets.all(20),
@@ -19,14 +21,14 @@ class _ProfileState extends State<Profile> {
             color: Colors.cyanAccent[700],
           ),
           Text(
-            "Marcão Rodriguez",
+            _user[0],
             style: TextStyle(
                 fontSize: 40,
                 fontWeight: FontWeight.bold,
                 color: Colors.cyanAccent[700]),
           ),
           Text(
-            "supermarcao",
+            _user[1],
             style: TextStyle(
                 fontSize: 35,
                 fontWeight: FontWeight.bold,

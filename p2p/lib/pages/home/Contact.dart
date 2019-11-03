@@ -1,8 +1,12 @@
-import 'dart:convert';
+<<<<<<< HEAD
+import 'package:flutter/material.dart';
+import 'package:p2p/service/GroupService.dart';
+import 'package:p2p/service/SearchService.dart';
+=======
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+>>>>>>> finalTeste
 
 class Contact extends StatefulWidget {
   @override
@@ -10,74 +14,83 @@ class Contact extends StatefulWidget {
 }
 
 class _ContactState extends State<Contact> {
-  final _contactSearchController = TextEditingController();
-  List _contactList = [];
+  final TextEditingController _searchControll = new TextEditingController();
+  final ScrollController _listControll = new ScrollController();
 
-  void _addGroup() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => GroupCreate()),
-    );
+  String request = "http:\/\/127.0.0.1:5000/";
+
+
+  List _results = new List();
+  List _filteredResults = new List();
+
+  _ContactState() {
+    _searchControll.addListener(() {
+      if (_searchControll.text.isNotEmpty) {
+        setState(() {
+          _filteredResults = new List();
+          for (int i = 0; i < _results.length; i++) {
+            if (_results[i].toString().toLowerCase().contains(_searchControll.text.toLowerCase())){
+              _filteredResults.add(_results[i]);
+            }
+          }
+        });
+      } else{
+        setState(() {
+         _filteredResults=_results; 
+        });
+      }
+    });
   }
-
-  void _searchContact(String data) {}
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Container(
-          padding: EdgeInsets.fromLTRB(17.0, 1.0, 7.0, 1.0),
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                child: TextField(
-                  controller: _contactSearchController,
-                  decoration: InputDecoration(
-                      labelText: "Buscar Contato",
-                      labelStyle: TextStyle(color: Colors.blueAccent)),
-                  onChanged: _searchContact,
-                ),
-              ),
-              RaisedButton(
-                color: Colors.cyan,
-                child: Text("Search"),
-                textColor: Colors.white,
-                onPressed: () {},
-              )
-            ],
+          child: TextField(
+            controller: _searchControll,
+            decoration: InputDecoration(labelText: "Buscar Contato"),
           ),
         ),
-        RaisedButton(
-          child: Text("Novo Grupo"),
-          color: Colors.cyan,
-          textColor: Colors.white,
-          onPressed: _addGroup,
-        ),
-        ListView.builder(
-          itemCount: _contactList.length,
-          itemBuilder: _buildItem,
-        )
+        Expanded(child: _buildList())
       ],
+    );
+  }
+
+  Widget _buildList() {
+    return ListView.builder(
+      controller: _listControll,
+      itemCount: _filteredResults.length,
+      itemBuilder: _buildItem,
     );
   }
 
   Widget _buildItem(BuildContext context, int index) {
     return ListTile(
-      title: Text(_contactList[index]["Grupo"]),
-      onTap: () {},
+      title: Text(_filteredResults[index]),
+<<<<<<< HEAD
+      onTap: () {
+        Navigator.of(context).pushNamed('/profile', arguments: [_filteredResults[index],_filteredResults[index],_filteredResults[index]]);
+      },
     );
+  }
+
+  @override
+  void initState() {
+    setState(() {
+      _results = (new GroupService()).getUserGroups(1);
+=======
+      //onTap: _openCard,
+    );
+  }
+
+  void _openCard() {
+    
   }
 
   Future<File> _getFile() async {
     final directory = await getApplicationDocumentsDirectory();
-    return File("${directory.path}/contacts.json");
-  }
-
-  Future<File> _saveData() async {
-    String data = json.encode(_contactList);
-    final file = await _getFile();
-    return file.writeAsString(data);
+    return File("${directory.path}/data.json");
   }
 
   Future<String> _readData() async {
@@ -92,25 +105,11 @@ class _ContactState extends State<Contact> {
 
   @override
   void initState() {
-    super.initState();
-    _readData().then((data) {
-      setState(() {
-        _contactList = json.decode(data);
-      });
+    setState(() {
+      _results = ["Jose", "Rothbard", "Samuel", "Marcelo"];
+>>>>>>> finalTeste
+      _filteredResults = _results;
     });
-  }
-}
-
-class GroupCreate extends StatefulWidget {
-  @override
-  _GroupCreateState createState() => _GroupCreateState();
-}
-
-class _GroupCreateState extends State<GroupCreate> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Text("criar grupo"),
-    );
+    super.initState();
   }
 }
