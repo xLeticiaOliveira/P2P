@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:p2p/Controller.dart';
 import 'package:p2p/service/GroupService.dart';
+import 'package:p2p/PlayerData.dart';
 
 class Search extends StatefulWidget {
   @override
@@ -13,7 +14,7 @@ class _SearchState extends State<Search> {
   final Controller _controll = new Controller();
   List _results = new List();
   List _filteredResults = new List();
-  int _state = 0;
+  int _state;
 
   /*
   baseado em: https://github.com/ahmed-alzahrani/Flutter_Search_Example
@@ -63,18 +64,21 @@ class _SearchState extends State<Search> {
   Widget _buildItem(BuildContext context, int index) {
     return ListTile(
       title: Text(_filteredResults[index]),
-      onTap: () {
+      onTap: () async{
         if(_state==0){
           List<String> temp = new List();
-          temp =  _controll.getPlayerList(_filteredResults[index]);
+          temp = await  _controll.getPlayerList(_filteredResults[index]);
           setState((){
             _filteredResults = temp;
             _state = 1;
         });
       } else{
-          Navigator.of(context).pushNamed('/profile', arguments: [
-            _controll.getPlayerProfile(index)
-          ]);
+          PlayerData info = _controll.getPlayerProfile(index);
+          Navigator.of(context).pushNamed(
+              '/profile',
+              arguments:
+              info
+          );
 
       }
       },
@@ -84,8 +88,9 @@ class _SearchState extends State<Search> {
   @override
   void initState() {
     setState(() {
-      _results = ["Rainbow Six Siege", "Outlast", "Rocket League", "Vôlei"];
+      _results = ["Rainbow Six Siege", "Outlast", "Rocket League"];
       _filteredResults = _results;
+      _state = 0;
     });
     super.initState();
   }

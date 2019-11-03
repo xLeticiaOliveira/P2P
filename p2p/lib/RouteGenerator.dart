@@ -24,7 +24,7 @@ class RouteGenerator {
                 return MaterialPageRoute(builder: (_)=> Register(args));
 
             case '/profile':
-                return MaterialPageRoute(builder: (_)=> SearchProfile(args));
+                return MaterialPageRoute(builder: (context)=> SearchProfile(args));
 
             default:
                 return MaterialPageRoute(builder: (_)=> Layout());
