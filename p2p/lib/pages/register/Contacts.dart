@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'package:flutter/material.dart';
 import 'package:p2p/pages/register/Register.dart';
 
@@ -7,6 +8,24 @@ class Contact extends StatefulWidget {
 }
 
 class _ContactState extends State<Contact> {
+=======
+import 'dart:io';
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:p2p/pages/register/Register.dart';
+import 'package:path_provider/path_provider.dart';
+
+class Contacts extends StatefulWidget {
+  @override
+  _ContactsState createState() => _ContactsState();
+}
+
+class _ContactsState extends State<Contacts> {
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+>>>>>>> finalTeste
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -27,58 +46,65 @@ class _ContactState extends State<Contact> {
             ),
           ),
           Divider(),
-          TextField(
-            decoration: InputDecoration(
-              labelText: "Telefone",
-              labelStyle: TextStyle(fontSize: 20, color: Colors.black),
-              border: OutlineInputBorder(),
-            ),
-          ),
-          Divider(),
-          TextField(
-            decoration: InputDecoration(
-              labelText: "Discord",
-              labelStyle: TextStyle(fontSize: 20, color: Colors.black),
-              border: OutlineInputBorder(),
-            ),
-          ),
-          Divider(),
-          TextField(
-            decoration: InputDecoration(
-              labelText: "Facebook",
-              labelStyle: TextStyle(fontSize: 20, color: Colors.black),
-              border: OutlineInputBorder(),
-            ),
-          ),
-          Divider(),
-          TextField(
-            obscureText: true,
-            decoration: InputDecoration(
-              labelText: "Instagram",
-              labelStyle: TextStyle(fontSize: 20, color: Colors.black),
-              border: OutlineInputBorder(),
-            ),
-          ),
-          Divider(),
-          TextField(
-            obscureText: true,
-            decoration: InputDecoration(
-              labelText: "Twitter",
-              labelStyle: TextStyle(fontSize: 20, color: Colors.black),
-              border: OutlineInputBorder(),
-            ),
-          ),
-          Divider(),
-          FlatButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed('/register', arguments: 2);
-            },
-            color: Colors.cyanAccent[700],
-            child: Text(
-              "Próximo",
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-          )
+          Form(
+              key: _formKey,
+              child: Column(children: <Widget>[
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: "Telefone",
+                    labelStyle: TextStyle(fontSize: 20, color: Colors.black),
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                Divider(),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: "Discord",
+                    labelStyle: TextStyle(fontSize: 20, color: Colors.black),
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                Divider(),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: "Facebook",
+                    labelStyle: TextStyle(fontSize: 20, color: Colors.black),
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                Divider(),
+                TextFormField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: "Instagram",
+                    labelStyle: TextStyle(fontSize: 20, color: Colors.black),
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                Divider(),
+                TextFormField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: "Twitter",
+                    labelStyle: TextStyle(fontSize: 20, color: Colors.black),
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                Divider(),
+                FlatButton(
+                  onPressed: () {
+                    if (_formKey.currentState.validate()) {
+                      Navigator.of(context)
+                          .pushNamed('/register', arguments: 2);
+                    }
+                  },
+                  color: Colors.cyanAccent[700],
+                  child: Text(
+                    "Próximo",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                )
+              ]))
         ],
       ),
     );

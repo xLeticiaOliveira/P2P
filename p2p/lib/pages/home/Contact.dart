@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import 'package:flutter/material.dart';
 import 'package:p2p/service/GroupService.dart';
 import 'package:p2p/service/SearchService.dart';
+=======
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+>>>>>>> finalTeste
 
 class Contact extends StatefulWidget {
   @override
@@ -21,12 +27,16 @@ class _ContactState extends State<Contact> {
     _searchControll.addListener(() {
       if (_searchControll.text.isNotEmpty) {
         setState(() {
-          _filteredResults = (new SearchService())
-              .fillteredSearch(_results, _searchControll.text.toLowerCase());
+          _filteredResults = new List();
+          for (int i = 0; i < _results.length; i++) {
+            if (_results[i].toString().toLowerCase().contains(_searchControll.text.toLowerCase())){
+              _filteredResults.add(_results[i]);
+            }
+          }
         });
-      } else {
+      } else{
         setState(() {
-          _filteredResults = _results;
+         _filteredResults=_results; 
         });
       }
     });
@@ -34,20 +44,16 @@ class _ContactState extends State<Contact> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(15),
-      child: Column(
-        children: <Widget>[
-          TextField(
+    return Column(
+      children: <Widget>[
+        Container(
+          child: TextField(
             controller: _searchControll,
-            decoration: InputDecoration(
-                labelText: "Buscar",
-                labelStyle: TextStyle(fontSize: 20, color: Colors.black),
-                border: OutlineInputBorder()),
+            decoration: InputDecoration(labelText: "Buscar Contato"),
           ),
-          Expanded(child: _buildList())
-        ],
-      ),
+        ),
+        Expanded(child: _buildList())
+      ],
     );
   }
 
@@ -62,6 +68,7 @@ class _ContactState extends State<Contact> {
   Widget _buildItem(BuildContext context, int index) {
     return ListTile(
       title: Text(_filteredResults[index]),
+<<<<<<< HEAD
       onTap: () {
         Navigator.of(context).pushNamed('/profile', arguments: [_filteredResults[index],_filteredResults[index],_filteredResults[index]]);
       },
@@ -72,6 +79,35 @@ class _ContactState extends State<Contact> {
   void initState() {
     setState(() {
       _results = (new GroupService()).getUserGroups(1);
+=======
+      //onTap: _openCard,
+    );
+  }
+
+  void _openCard() {
+    
+  }
+
+  Future<File> _getFile() async {
+    final directory = await getApplicationDocumentsDirectory();
+    return File("${directory.path}/data.json");
+  }
+
+  Future<String> _readData() async {
+    try {
+      final file = await _getFile();
+
+      return file.readAsString();
+    } catch (e) {
+      return null;
+    }
+  }
+
+  @override
+  void initState() {
+    setState(() {
+      _results = ["Jose", "Rothbard", "Samuel", "Marcelo"];
+>>>>>>> finalTeste
       _filteredResults = _results;
     });
     super.initState();
