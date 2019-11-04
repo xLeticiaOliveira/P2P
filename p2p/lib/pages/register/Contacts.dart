@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-import 'package:flutter/material.dart';
-import 'package:p2p/pages/register/Register.dart';
-
-class Contact extends StatefulWidget {
-  @override
-  _ContactState createState() => _ContactState();
-}
-
-class _ContactState extends State<Contact> {
-=======
 import 'dart:io';
 import 'dart:async';
 import 'dart:convert';
@@ -25,7 +14,6 @@ class Contacts extends StatefulWidget {
 class _ContactsState extends State<Contacts> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
->>>>>>> finalTeste
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -109,4 +97,5 @@ class _ContactsState extends State<Contacts> {
       ),
     );
   }
+
 }

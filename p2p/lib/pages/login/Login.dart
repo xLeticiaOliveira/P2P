@@ -11,7 +11,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Player2Player'),
+          title: Text('Next Match'),
           backgroundColor: Colors.cyanAccent[700],
         ),
         body: Center(
@@ -24,7 +24,7 @@ class _LoginState extends State<Login> {
                 padding: EdgeInsets.only(bottom: 10),
                 child: Column(
                   children: <Widget>[
-                    Text('Player2Player',
+                    Text('Next Match',
                         style: TextStyle(
                             color: Colors.cyanAccent[700], fontSize: 50)),
                   ],
@@ -50,7 +50,7 @@ class _LoginState extends State<Login> {
               Divider(),
               FlatButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/home');
+                  Navigator.of(context).pushNamed('/home', arguments: 1);
                 },
                 color: Colors.cyanAccent[700],
                 child: Text(

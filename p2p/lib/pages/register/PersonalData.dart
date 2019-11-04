@@ -27,7 +27,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
           Divider(),
           TextField(
             decoration: InputDecoration(
-              labelText: "Nomezenho",
+              labelText: "Nome",
               labelStyle: TextStyle(fontSize: 20, color: Colors.black),
               border: OutlineInputBorder(),
             ),
@@ -43,7 +43,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
           Divider(),
           TextField(
             decoration: InputDecoration(
-              labelText: "Emailzitu",
+              labelText: "Email",
               labelStyle: TextStyle(fontSize: 20, color: Colors.black),
               border: OutlineInputBorder(),
             ),

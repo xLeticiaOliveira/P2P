@@ -6,13 +6,23 @@ import 'package:p2p/service/UserService.dart';
 import 'package:p2p/pages/home/Discovery.dart';
 
 class Layout extends StatefulWidget {
+  int _index;
+  Layout(int index){
+    this._index = index;
+  }
+
   @override
-  _LayoutState createState() => _LayoutState();
+  _LayoutState createState() => _LayoutState(_index);
+
 }
 
 class _LayoutState extends State<Layout> {
 
   int _selectedIndex = 1;
+
+  _LayoutState(int index){
+      this._selectedIndex = index;
+  }
 
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -34,7 +44,7 @@ class _LayoutState extends State<Layout> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Player2Player'),
+          title: Text('Next Match'),
           backgroundColor: Colors.cyanAccent[700],
         ),
         body: Center(

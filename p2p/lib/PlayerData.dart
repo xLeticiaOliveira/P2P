@@ -18,4 +18,17 @@ class PlayerData{
     this.nome = user["usuario"]["nome"];
   }
 
+  Map<String, dynamic> toMap(){
+    Map<String, dynamic> novo = new Map();
+    novo["jogo"] = this.jogo;
+    novo["nick"] = this.nick;
+    novo["plataforma"] = this.plataforma;
+    novo["rank"] = this.rank;
+    novo["usuario"] = {
+      "idade": this.idade,
+      "localizacao": this.localizacao,
+      "nome": this.nome
+    };
+      return novo;
+    }
 }

@@ -22,7 +22,7 @@ class _RegisterState extends State<Register> {
 
   static List<Widget> _widgetOptions = <Widget>[
     PersonalInfo(),
-    Contact(),
+    Contacts(),
     Intersting()
   ];
 
@@ -30,7 +30,7 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Player2Player'),
+          title: Text('Next Match'),
           backgroundColor: Colors.cyanAccent[700],
         ),
         body: Center(
